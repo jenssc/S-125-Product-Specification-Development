@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:S100="http://www.iho.int/s100gml/5.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns="http://www.iho.int/S-125/gml/cs0/1.0" targetNamespace="http://www.iho.int/S-125/gml/cs0/1.0" elementFormDefault="qualified" version="0.0.3">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:S100="http://www.iho.int/s100gml/5.0" xmlns:gml="http://www.opengis.net/gml/3.2" xmlns="http://www.iho.int/S-125/gml/cs0/1.0" targetNamespace="http://www.iho.int/S-125/gml/cs0/1.0" elementFormDefault="qualified" version="1.0">
 	<!-- ========================================================================================== -->
 	<!-- S100 XML/GML Schema for S-125                                                              -->
 	<!-- ========================================================================================== -->
@@ -5512,7 +5512,12 @@
 							<xs:documentation/>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="peer" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="peerAtonAggregation" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation/>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="peerAtonAssociation" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation/>
 						</xs:annotation>
@@ -5550,6 +5555,174 @@
 						<xs:annotation>
 							<xs:documentation/>
 						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="ElectronicAton" type="ElectronicAtonType"/>
+	<xs:complexType name="ElectronicAtonType" abstract="true">
+		<xs:annotation>
+			<xs:documentation>TBD</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="S100:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="AtoNNumber" type="xs:anyURI" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Identifier from a list of Aids to Navigation publication, such as List of Lights.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="mMSICode" type="xs:string" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The Maritime Mobile Service Identity (MMSI) Code is formed of a series of nine digits which are transmitted over the radio path in order to uniquely identify ship stations, ship earth stations,coast stations, coast earth stations, and group calls. These identities are formed in such a way that the identity or part thereof can be used by telephone and telex subscribers connected to the general telecommunications network principally to call ships automatically.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="status" type="statusType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The condition of an object at a given instant in time.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="VirtualAISAidToNavigation" type="VirtualAISAidToNavigationType"/>
+	<xs:complexType name="VirtualAISAidToNavigationType">
+		<xs:annotation>
+			<xs:documentation>An Automatic Identification System (AIS) message 21 transmitted from an AIS station to simulate on navigation systems an Aid to Navigation which does not physically exist.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="S100:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="virtualAISAidToNavigationType" type="virtualAISAidToNavigationTypeType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>A purpose of a virtual AIS Aid to Navigation.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="virtualAISbroadcasts" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation/>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="geometry" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:choice>
+								<xs:element ref="S100:pointProperty"/>
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="PhysicalAISAidToNavigation" type="PhysicalAISAidToNavigationType"/>
+	<xs:complexType name="PhysicalAISAidToNavigationType">
+		<xs:annotation>
+			<xs:documentation>An Automatic Identification System (AIS) message 21 transmitted from a physical Aid to Navigation, or transmitted from an AIS station for an Aid to Navigation which physically exists.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="S100:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="CategoryOfPhysicalAISAidToNavigation" type="CategoryOfPhysicalAISAidToNavigationType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>-</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="physicalAISbroadcasts" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation/>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="geometry" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:choice>
+								<xs:element ref="S100:pointProperty"/>
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="SyntheticAISAidToNavigation" type="SyntheticAISAidToNavigationType"/>
+	<xs:complexType name="SyntheticAISAidToNavigationType">
+		<xs:annotation>
+			<xs:documentation>-</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="S100:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="CategoryOfSyntheticAISAidtoNavigation" type="CategoryOfSyntheticAISAidtoNavigationType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>-</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="virtualAISAidToNavigationType" type="virtualAISAidToNavigationTypeType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>A purpose of a virtual AIS Aid to Navigation.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="syntheticAISbroadcasts" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation/>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="geometry" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:choice>
+								<xs:element ref="S100:pointProperty"/>
+							</xs:choice>
+						</xs:complexType>
+					</xs:element>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:element name="RadioStation" type="RadioStationType"/>
+	<xs:complexType name="RadioStationType">
+		<xs:annotation>
+			<xs:documentation>A place equipped to transmit radio waves. Such a station may be either stationary or mobile, and may also be provided with a radio receiver.</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:extension base="S100:AbstractFeatureType">
+				<xs:sequence>
+					<xs:element name="categoryOfRadioStation" type="categoryOfRadioStationType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>Classification of radio services offered by a radio station.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="estimatedRangeOfTransmission" type="xs:double" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The estimated range of a non-optical electromagnetic transmission.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="status" type="statusType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The condition of an object at a given instant in time.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="physicalAISbroadcastBy" type="gml:ReferenceType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation/>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="syntheticAISbroadcastBy" type="gml:ReferenceType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation/>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="virtualAISbroadcastBy" type="gml:ReferenceType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation/>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="geometry" maxOccurs="unbounded">
+						<xs:complexType>
+							<xs:choice>
+								<xs:element ref="S100:pointProperty"/>
+							</xs:choice>
+						</xs:complexType>
 					</xs:element>
 				</xs:sequence>
 			</xs:extension>
@@ -5670,7 +5843,7 @@
 							<xs:documentation>Type equipment used as a buoy in a particular installation.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="equipment" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="topmarkPart" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation/>
 						</xs:annotation>
@@ -5687,24 +5860,9 @@
 		<xs:complexContent>
 			<xs:extension base="S100:AbstractFeatureType">
 				<xs:sequence>
-					<xs:element name="colour" type="colourType" minOccurs="1" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation>The property possessed by an object of producing different sensations on the eye as a result of the way it reflects or emits light.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
 					<xs:element name="height" type="xs:double" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The value of the vertical distance to the highest point of the object, measured from a specified vertical datum.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="status" type="statusType" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation>The condition of an object at a given instant in time.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="verticalDatum" type="verticalDatumType" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The reference level used for expressing the vertical measurements of points on the earth&#39;s surface. Also called datum level, reference plane, levelling datum, datum for sounding reduction, datum for heights.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="verticalLength" type="xs:double" minOccurs="0" maxOccurs="1">
@@ -5712,7 +5870,22 @@
 							<xs:documentation>The total vertical length of a feature.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="candela" type="xs:double" minOccurs="0" maxOccurs="1">
+					<xs:element name="verticalDatum" type="verticalDatumType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The reference level used for expressing the vertical measurements of points on the earth&#39;s surface. Also called datum level, reference plane, levelling datum, datum for sounding reduction, datum for heights.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="status" type="statusType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The condition of an object at a given instant in time.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="effectiveIntensity" type="xs:double" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>-</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="peakIntensity" type="xs:double" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>-</xs:documentation>
 						</xs:annotation>
@@ -5956,14 +6129,9 @@
 		<xs:complexContent>
 			<xs:extension base="S100:AbstractFeatureType">
 				<xs:sequence>
-					<xs:element name="categoryOfLight" type="categoryOfLightType" minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="colour" type="colourType" minOccurs="1" maxOccurs="unbounded">
 						<xs:annotation>
-							<xs:documentation>Classification of different light types.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="exhibitionConditionOfLight" type="exhibitionConditionOfLightType" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The outward display of the light.</xs:documentation>
+							<xs:documentation>The property possessed by an object of producing different sensations on the eye as a result of the way it reflects or emits light.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="marksNavigationalSystemOf" type="marksNavigationalSystemOfType" minOccurs="0" maxOccurs="1">
@@ -5976,14 +6144,29 @@
 							<xs:documentation>The mechanism used to generate a fog or light signal.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="ObscuredSector" type="ObscuredSectorType" minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="exhibitionConditionOfLight" type="exhibitionConditionOfLightType" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
-							<xs:documentation>-</xs:documentation>
+							<xs:documentation>The outward display of the light.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="categoryOfLight" type="categoryOfLightType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>Classification of different light types.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="sectorCharacteristics" type="sectorCharacteristicsType" minOccurs="1" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>Describes the characteristics of a light sector.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="ObscuredSector" type="ObscuredSectorType" minOccurs="0" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>-</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="multiplicityOfFeatures" type="multiplicityOfFeaturesType" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The number of features of identical character that exist as a colocated group.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="geometry" maxOccurs="unbounded">
@@ -6035,16 +6218,6 @@
 							<xs:documentation>The mechanism used to generate a fog or light signal.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="valueOfGeographicRange" type="xs:double" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The greatest distance at which a light can be seen as a function of the curvature of the earth and the heights of the light source and the observer.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="valueOfLuminousRange" type="xs:double" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The greatest distance at which a light can be seen merely as a function of its luminous intensity, the meteorological visibility, and the sensitivity of the observer&#39;s eye.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
 					<xs:element name="valueOfNominalRange" type="xs:double" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The luminous range of a light in a homogenous atmosphere in which the meteorological visibility is 10 sea miles.</xs:documentation>
@@ -6053,6 +6226,16 @@
 					<xs:element name="multiplicityOfFeatures" type="multiplicityOfFeaturesType" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The number of features of identical character that exist as a colocated group.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="colour" type="colourType" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The property possessed by an object of producing different sensations on the eye as a result of the way it reflects or emits light.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="rhythmOfLight" type="rhythmOfLightType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The sequence of times occupied by intervals of light/sound and eclipse/silence for all light characteristics or sound signals.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="geometry" maxOccurs="unbounded">
@@ -6084,16 +6267,6 @@
 							<xs:documentation>The specific visibility of a light, with respect to the light&#39;s intensity and ease of recognition.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="valueOfGeographicRange" type="xs:double" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The greatest distance at which a light can be seen as a function of the curvature of the earth and the heights of the light source and the observer.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="valueOfLuminousRange" type="xs:double" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The greatest distance at which a light can be seen merely as a function of its luminous intensity, the meteorological visibility, and the sensitivity of the observer&#39;s eye.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
 					<xs:element name="valueOfNominalRange" type="xs:double" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The luminous range of a light in a homogenous atmosphere in which the meteorological visibility is 10 sea miles.</xs:documentation>
@@ -6102,6 +6275,21 @@
 					<xs:element name="multiplicityOfFeatures" type="multiplicityOfFeaturesType" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The number of features of identical character that exist as a colocated group.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="rhythmOfLight" type="rhythmOfLightType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The sequence of times occupied by intervals of light/sound and eclipse/silence for all light characteristics or sound signals.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="colour" type="colourType" minOccurs="1" maxOccurs="unbounded">
+						<xs:annotation>
+							<xs:documentation>The property possessed by an object of producing different sensations on the eye as a result of the way it reflects or emits light.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="flareBearing" type="xs:integer" minOccurs="0" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>-</xs:documentation>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="geometry" maxOccurs="unbounded">
@@ -6123,6 +6311,11 @@
 		<xs:complexContent>
 			<xs:extension base="S100:AbstractFeatureType">
 				<xs:sequence>
+					<xs:element name="rhythmOfLight" type="rhythmOfLightType" minOccurs="1" maxOccurs="1">
+						<xs:annotation>
+							<xs:documentation>The sequence of times occupied by intervals of light/sound and eclipse/silence for all light characteristics or sound signals.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
 					<xs:element name="signalGeneration" type="signalGenerationType" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The mechanism used to generate a fog or light signal.</xs:documentation>
@@ -6189,40 +6382,6 @@
 					<xs:element name="status" type="statusType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation>The condition of an object at a given instant in time.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="geometry" maxOccurs="unbounded">
-						<xs:complexType>
-							<xs:choice>
-								<xs:element ref="S100:pointProperty"/>
-							</xs:choice>
-						</xs:complexType>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	<xs:element name="RadioStation" type="RadioStationType"/>
-	<xs:complexType name="RadioStationType">
-		<xs:annotation>
-			<xs:documentation>A place equipped to transmit radio waves. Such a station may be either stationary or mobile, and may also be provided with a radio receiver.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="S100:AbstractFeatureType">
-				<xs:sequence>
-					<xs:element name="categoryOfRadioStation" type="categoryOfRadioStationType" minOccurs="1" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>Classification of radio services offered by a radio station.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="status" type="statusType" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The condition of an object at a given instant in time.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="broadcastBy" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation/>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="geometry" maxOccurs="unbounded">
@@ -6385,148 +6544,6 @@
 					<xs:element name="signalSequence" type="signalSequenceType" minOccurs="0" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation>The sequence of times occupied by intervals of light and eclipse for all light characteristics.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="geometry" maxOccurs="unbounded">
-						<xs:complexType>
-							<xs:choice>
-								<xs:element ref="S100:pointProperty"/>
-							</xs:choice>
-						</xs:complexType>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	<xs:element name="VirtualAISAidToNavigation" type="VirtualAISAidToNavigationType"/>
-	<xs:complexType name="VirtualAISAidToNavigationType">
-		<xs:annotation>
-			<xs:documentation>An Automatic Identification System (AIS) message 21 transmitted from an AIS station to simulate on navigation systems an Aid to Navigation which does not physically exist.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="S100:AbstractFeatureType">
-				<xs:sequence>
-					<xs:element name="estimatedRangeOfTransmission" type="xs:double" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The estimated range of a non-optical electromagnetic transmission.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="mMSICode" type="xs:string" minOccurs="1" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The Maritime Mobile Service Identity (MMSI) Code is formed of a series of nine digits which are transmitted over the radio path in order to uniquely identify ship stations, ship earth stations,coast stations, coast earth stations, and group calls. These identities are formed in such a way that the identity or part thereof can be used by telephone and telex subscribers connected to the general telecommunications network principally to call ships automatically.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="status" type="statusType" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation>The condition of an object at a given instant in time.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="virtualAISAidToNavigationType" type="virtualAISAidToNavigationTypeType" minOccurs="1" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>A purpose of a virtual AIS Aid to Navigation.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="broadcasts" type="gml:ReferenceType" minOccurs="1" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation/>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="geometry" maxOccurs="unbounded">
-						<xs:complexType>
-							<xs:choice>
-								<xs:element ref="S100:pointProperty"/>
-							</xs:choice>
-						</xs:complexType>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	<xs:element name="PhysicalAISAidToNavigation" type="PhysicalAISAidToNavigationType"/>
-	<xs:complexType name="PhysicalAISAidToNavigationType">
-		<xs:annotation>
-			<xs:documentation>An Automatic Identification System (AIS) message 21 transmitted from a physical Aid to Navigation, or transmitted from an AIS station for an Aid to Navigation which physically exists.</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="S100:AbstractFeatureType">
-				<xs:sequence>
-					<xs:element name="CategoryOfPhysicalAISAidToNavigation" type="CategoryOfPhysicalAISAidToNavigationType" minOccurs="1" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>-</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="estimatedRangeOfTransmission" type="xs:double" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The estimated range of a non-optical electromagnetic transmission.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="mMSICode" type="xs:string" minOccurs="1" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The Maritime Mobile Service Identity (MMSI) Code is formed of a series of nine digits which are transmitted over the radio path in order to uniquely identify ship stations, ship earth stations,coast stations, coast earth stations, and group calls. These identities are formed in such a way that the identity or part thereof can be used by telephone and telex subscribers connected to the general telecommunications network principally to call ships automatically.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="status" type="statusType" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation>The condition of an object at a given instant in time.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="virtualAISAidToNavigationType" type="virtualAISAidToNavigationTypeType" minOccurs="1" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>A purpose of a virtual AIS Aid to Navigation.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="broadcasts" type="gml:ReferenceType" minOccurs="1" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation/>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="geometry" maxOccurs="unbounded">
-						<xs:complexType>
-							<xs:choice>
-								<xs:element ref="S100:pointProperty"/>
-							</xs:choice>
-						</xs:complexType>
-					</xs:element>
-				</xs:sequence>
-			</xs:extension>
-		</xs:complexContent>
-	</xs:complexType>
-	<xs:element name="SyntheticAISAidToNavigation" type="SyntheticAISAidToNavigationType"/>
-	<xs:complexType name="SyntheticAISAidToNavigationType">
-		<xs:annotation>
-			<xs:documentation>-</xs:documentation>
-		</xs:annotation>
-		<xs:complexContent>
-			<xs:extension base="S100:AbstractFeatureType">
-				<xs:sequence>
-					<xs:element name="CategoryOfSyntheticAISAidtoNavigation" type="CategoryOfSyntheticAISAidtoNavigationType" minOccurs="1" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>-</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="estimatedRangeOfTransmission" type="xs:double" minOccurs="0" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The estimated range of a non-optical electromagnetic transmission.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="mMSICode" type="xs:string" minOccurs="1" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>The Maritime Mobile Service Identity (MMSI) Code is formed of a series of nine digits which are transmitted over the radio path in order to uniquely identify ship stations, ship earth stations,coast stations, coast earth stations, and group calls. These identities are formed in such a way that the identity or part thereof can be used by telephone and telex subscribers connected to the general telecommunications network principally to call ships automatically.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="status" type="statusType" minOccurs="0" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation>The condition of an object at a given instant in time.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="virtualAISAidToNavigationType" type="virtualAISAidToNavigationTypeType" minOccurs="1" maxOccurs="1">
-						<xs:annotation>
-							<xs:documentation>A purpose of a virtual AIS Aid to Navigation.</xs:documentation>
-						</xs:annotation>
-					</xs:element>
-					<xs:element name="broadcasts" type="gml:ReferenceType" minOccurs="1" maxOccurs="unbounded">
-						<xs:annotation>
-							<xs:documentation/>
 						</xs:annotation>
 					</xs:element>
 					<xs:element name="geometry" maxOccurs="unbounded">
@@ -7034,7 +7051,7 @@
 							<xs:documentation>The shape a topmark or daymark exhibits.</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="structure" type="gml:ReferenceType" minOccurs="1" maxOccurs="1">
+					<xs:element name="buoyPart" type="gml:ReferenceType" minOccurs="1" maxOccurs="1">
 						<xs:annotation>
 							<xs:documentation/>
 						</xs:annotation>
@@ -7183,7 +7200,7 @@
 							<xs:documentation>named aggregations between two or more aids to navigation and/or navigationally relevant features</xs:documentation>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="peer" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="atonAggregationBy" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation/>
 						</xs:annotation>
@@ -7210,7 +7227,7 @@
 							<xs:documentation/>
 						</xs:annotation>
 					</xs:element>
-					<xs:element name="peer" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
+					<xs:element name="atonAssociationBy" type="gml:ReferenceType" minOccurs="0" maxOccurs="unbounded">
 						<xs:annotation>
 							<xs:documentation/>
 						</xs:annotation>
@@ -7356,6 +7373,11 @@
 			<xs:element name="AidsToNavigation"/>
 			<xs:element name="StructureObject"/>
 			<xs:element name="Equipment"/>
+			<xs:element name="ElectronicAton"/>
+			<xs:element name="VirtualAISAidToNavigation"/>
+			<xs:element name="PhysicalAISAidToNavigation"/>
+			<xs:element name="SyntheticAISAidToNavigation"/>
+			<xs:element name="RadioStation"/>
 			<xs:element name="GenericBeacon"/>
 			<xs:element name="GenericBuoy"/>
 			<xs:element name="GenericLight"/>
@@ -7370,13 +7392,9 @@
 			<xs:element name="LightFogDetector"/>
 			<xs:element name="RadarReflector"/>
 			<xs:element name="FogSignal"/>
-			<xs:element name="RadioStation"/>
 			<xs:element name="Daymark"/>
 			<xs:element name="Retroreflector"/>
 			<xs:element name="RadarTransponderBeacon"/>
-			<xs:element name="VirtualAISAidToNavigation"/>
-			<xs:element name="PhysicalAISAidToNavigation"/>
-			<xs:element name="SyntheticAISAidToNavigation"/>
 			<xs:element name="IsolatedDangerBeacon"/>
 			<xs:element name="CardinalBeacon"/>
 			<xs:element name="IsolatedDangerBuoy"/>
