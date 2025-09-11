@@ -1,6 +1,10 @@
 # S-125-Product-Specification-Development
 S-125 Product Specification Development Collaboration space for IHO Nautical Information Provision Working Group for the development of S-125 PS.
 
+## 2025-09-11 Updated version of S-125 1.0.0 Release Candidate uploaded
+
+The update contains fixes to the previous version.
+
 ## 2025-09-02 Update of the S-125 1.0.0 Release Candidate version, to reflect changes in S-201
 
 The update reflects changes made by IALA ARM to the S-201 data model during the approval process.
